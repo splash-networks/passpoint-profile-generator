@@ -42,7 +42,7 @@ PROFILE_TEMPLATE = """<MgmtTree xmlns="syncml:dmddf1.2">
           </Node>
           <Node>
             <NodeName>Password</NodeName>
-            <Value>{{ profile.Credential.UsernamePassword.Password }}</Value>
+            <Value>{{ profile.Credential.UsernamePassword.Password | b64encode }}</Value>
           </Node>
           <Node>
             <NodeName>EAPMethod</NodeName>

@@ -1,4 +1,3 @@
-
 import os
 import base64
 import fastapi
@@ -8,7 +7,7 @@ import templates.multipart_mixed_template
 import schema.profile
 
 app = fastapi.FastAPI()
-BOUNDARY = 'l1ZMD64Ujevti9JwYOrJoLo4YmoJLJZU'  # Should be a unique string not found in any documents
+BOUNDARY = 'l1ZMD64Ujevti9JwYOrJoLo4YmoJLJZU'
 
 
 @app.get('/passpoint.config')  # builds android passpoint profile
@@ -29,9 +28,25 @@ def build_wifi_profile(profile: str, certificate: str):
     return fastapi.Response(content=base64.b64encode(payload.encode('ascii')).decode('ascii'), headers=headers)
 
 
+@app.get('/passpoint.mobileconfig')
+def build_ios_wifi_profile(profile: str):
+    """
+    Serves an iOS/iPadOS Passpoint mobileconfig profile.
+    Must be opened in Safari on the device to trigger installation.
+    """
+    with open('profiles/' + profile, 'r') as f:
+        mobileconfig = f.read()
+
+    headers = {
+        'Content-Type': 'application/x-apple-aspen-config',
+        'Content-Disposition': f'attachment; filename="{profile}"'
+    }
+    return fastapi.Response(content=mobileconfig, headers=headers)
+
+
 @app.post('/profiles/{file_name}')
 def build_profile(file_name: str, profile: schema.profile.Profile):
-    """ Add a profiles  """
+    """ Add an Android profile """
     try:
         main.create_profile(file_name, profile)
         return True
@@ -39,7 +54,19 @@ def build_profile(file_name: str, profile: schema.profile.Profile):
         return error
 
 
-@app.get('profiles', response_model=list)
+@app.post('/profiles/ios/{file_name}')
+def build_ios_profile(file_name: str, profile: schema.profile.Profile,
+                      tls_server_name: str = None, payload_identifier: str = None):
+    """ Add an iOS profile """
+    try:
+        main.create_ios_profile(file_name, profile.dict(), tls_server_name=tls_server_name,
+                                payload_identifier=payload_identifier)
+        return True
+    except fastapi.exceptions.FastAPIError as error:
+        return error
+
+
+@app.get('/profiles', response_model=list)
 def list_profiles():
     """ List available profiles """
     return os.listdir('profiles')
