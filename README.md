@@ -2,7 +2,7 @@
 
 Forked from [here](https://github.com/omenoen/android_passpoint).
 
-This tool can be used to build Passpoint profiles for Android and iOS.
+This tool can be used to build Passpoint profiles for Android and iOS/iPadOS/macOS.
 
 ## Usage
 
@@ -32,7 +32,7 @@ Start web server
 
 ## Uploading to Android
 
-Using chrome navigate to:
+Using Chrome navigate to:
 
 ```
 http://{serverIP}:8000/passpoint.config?profile={profile.xml}&certificate={certificate}
