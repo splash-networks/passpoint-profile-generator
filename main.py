@@ -145,7 +145,7 @@ def start_uvicorn():
             break
         if index + 1 == len(profiles_folder):
             print('Missing profile files in folder profile.\n'
-                  'Please upload a .xml profile into that folder or "Generate profile a file"')
+                  'Please upload a .xml profile into that folder or "Generate profile"')
             return None
     for index, file in enumerate(certificates_folder):
         if file[-4:] == '.cer':
@@ -252,7 +252,7 @@ def main():
           'Please enter the number before the option to continue with that option\n')
     while choice not in [4, '4', 'exit', 'quit', 'close', 'q']:
         choice = input('1. Instructions\n'
-                       '2. Generate profile a file\n'
+                       '2. Generate profile\n'
                        '3. Start web server\n'
                        '4. Exit\n')
         if choice in [1, "1", "Instructions", "instructions", "help", "Help"]:
