@@ -4,13 +4,22 @@ Forked from [here](https://github.com/omenoen/android_passpoint).
 
 This tool can be used to build Passpoint profiles for Android and iOS/iPadOS/macOS.
 
+## Setup
+
+```
+apt install python3.12-venv python3-pip
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install -r requirements.txt
+```
+
 ## Usage
 
 ### CLI Tool
 
 CLI based tool to walk a user through generating and starting up a web server. RADIUS ca.cer file will need to be put into the certificate folder.
 
-``` python main.py```
+```python main.py```
 
 ### Just Web Server
 
