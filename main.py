@@ -171,7 +171,7 @@ def profile_generator():
     profile_data['HomeSP'].update(
         {'FriendlyName': input('What is the friendly name of the network? ')})
     profile_data['HomeSP'].update(
-        {'FQDN': input('What is the domain for the network? ')})
+        {'FQDN': input('What is the home operator FQDN for the network? (e.g. hotspot.example.com) ')})
     choice = input('Does the network have a roaming consortium ID? (y/n) ')
     while choice not in ['y', 'n', 'yes', 'no', 'Yes', 'No', 'true', 'false', 'True', 'False']:
         choice = input('Response: {choice} was not valid input.\n'
@@ -184,7 +184,8 @@ def profile_generator():
         profile_data['HomeSP'].update(
             {'RoamingConsortiumOI': input('What is the roaming consortium ID the network? ')})
     profile_data['Credential'].update(
-        {'Realm': input('What is the domain that the credential belongs to? ')})
+        {'Realm': input('What is the NAI realm for the credential? '
+                        '(the part after @ in the username, e.g. example.com) ')})
 
     eap_types = 'EAP-TTLS (21), EAP-TLS (13), EAP-SIM (18), EAP-AKA (23), EAP-AKA (50)'
 

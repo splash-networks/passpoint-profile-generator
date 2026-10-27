@@ -27,6 +27,12 @@ IOS_PROFILE_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
       <string>{{ profile.HomeSP.FriendlyName }}</string>
       <key>DomainName</key>
       <string>{{ profile.HomeSP.FQDN }}</string>
+      {%- if profile.Credential.Realm %}
+      <key>NAIRealmNames</key>
+      <array>
+        <string>{{ profile.Credential.Realm }}</string>
+      </array>
+      {%- endif %}
       {%- if profile.HomeSP.RoamingConsortiumOI is defined %}
       <key>RoamingConsortiumOIs</key>
       <array>
